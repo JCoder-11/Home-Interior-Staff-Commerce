@@ -1,0 +1,37 @@
+.hero {
+  display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+  gap: 32px; max-width: 1440px; margin: 0 auto;
+  padding: 48px clamp(24px, 8vw, 128px);
+}
+.hero__eyebrow { font-weight: 500; margin: 0; }
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05;
+  font-weight: 900; margin: 16px 0;
+}
+.hero h1 span { display: block; color: #ff5a00; }
+.hero__desc { max-width: 420px; color: #444; line-height: 1.5; font-size: 0.9rem; }
+.hero__buttons { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+
+.btn { padding: 12px 28px; border-radius: 999px; font-weight: 600; text-decoration: none; }
+.btn--dark { background: #111; color: #fff; }
+.btn--outline { border: 1.5px solid #111; color: #111; }
+
+.hero__visual { display: flex; justify-content: center; }
+.hero__phone-wrap { position: relative; width: min(100%, 480px); }
+.hero__phone { width: 100%; height: auto; display: block; }
+
+.badge {
+  position: absolute; padding: 10px 18px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 600; color: #fff; white-space: nowrap;
+}
+.badge--dark { background: #111; top: 6%; right: -4%; }
+.badge--orange { background: #ff5a00; bottom: 4%; left: -4%; }
+
+@media (max-width: 767px) {
+  .hero { grid-template-columns: 1fr; text-align: center; padding: 32px 20px; }
+  .hero__desc { margin: 0 auto; }
+  .hero__buttons { justify-content: center; }
+  .hero__phone-wrap { width: min(100%, 300px); }
+  .badge--dark { right: 0; }
+  .badge--orange { left: 0; }
+}
