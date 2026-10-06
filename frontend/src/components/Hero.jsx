@@ -23,6 +23,8 @@ export default function Hero() {
     <span className="badge badge--orange">Built For Sales</span>
   </div>
 </div>
+
+
     </section>
   )
 }
