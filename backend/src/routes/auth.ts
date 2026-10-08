@@ -1,7 +1,6 @@
 import { Router } from "express";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { supabase } from "../supabase";
+import { supabase, createAuthClient } from "../supabase";
 
 const router = Router();
 
@@ -34,6 +33,7 @@ router.post("/register", async (req, res) => {
   });
 
   if (profileError) {
+    await supabase.auth.admin.deleteUser(authUser.user.id);
     return res.status(400).json({ error: profileError.message });
   }
 
@@ -49,28 +49,18 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ error: "Email and password required" });
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const authClient = createAuthClient();
+  const { data, error } = await authClient.auth.signInWithPassword({ email, password });
 
   if (error || !data.user) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
-
-  console.log("Logged in user ID:", data.user.id);
-
-  const { data: allProfiles, error: allError } = await supabase
-    .from("profiles")
-    .select("*");
-
-  console.log("ALL profiles via API:", allProfiles);
-  console.log("ALL profiles error:", allError);
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", data.user.id)
     .single();
-
-  console.log("Profile lookup result:", profile, profileError);
 
   if (profileError || !profile) {
     return res.status(404).json({ error: "Profile not found" });
