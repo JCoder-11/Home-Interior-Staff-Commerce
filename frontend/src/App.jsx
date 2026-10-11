@@ -1,6 +1,7 @@
 import { Routes, Route, Outlet } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import SalesTeam from './pages/SalesTeam'
+import HowItWorks from './pages/HowItWorks'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import ForgotPassword from './pages/ForgotPassword'
@@ -23,7 +24,7 @@ export default function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<SalesTeam />} />
-        <Route path="/how-it-works" element={<Soon title="How It Works" />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/admin-tools" element={<Soon title="Admin Tools" />} />
       </Route>
 
