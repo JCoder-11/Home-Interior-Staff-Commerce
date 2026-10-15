@@ -1,0 +1,191 @@
+/*  page + soft orange background - */
+.how {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse 45% 40% at 0% 42%, rgba(255, 140, 60, 0.28), transparent 70%),
+    radial-gradient(ellipse 45% 40% at 100% 88%, rgba(255, 140, 60, 0.28), transparent 70%),
+    #fff;
+}
+.how__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 40px) 48px;
+}
+
+/*  heading  */
+.how__header {
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+.how__header h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 7vw, 4.2rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+.how__tagline {
+  margin: 10px 0 8px;
+  color: #ff5a00;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 3vw, 1.6rem);
+}
+.how__intro {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #444;
+  line-height: 1.5;
+  font-size: clamp(0.9rem, 2.4vw, 1.05rem);
+}
+
+/* ---------- the 4 steps (desktop: 2 x 2 grid) ---------- */
+.steps {
+  --gap: clamp(32px, 6vw, 80px);
+  --text-offset: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--gap);
+  row-gap: 40px;
+}
+
+/* dashed line down the middle */
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: calc(var(--text-offset) + 1.75rem);
+  bottom: 2rem;
+  border-left: 2px dashed #ff5a00;
+  transform: translateX(-1px);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 190px);
+  align-items: start;
+  gap: 20px;
+}
+.step__text {
+  position: relative;
+  padding-top: var(--text-offset);
+}
+
+/* orange dot on the line, beside steps 02 and 04 */
+.step:nth-child(even) .step__text::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--gap) / -2);
+  top: calc(var(--text-offset) + 1.75rem - 6px);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5a00;
+  transform: translateX(-50%);
+}
+
+.step__number {
+  display: block;
+  font-size: 3.5rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #ff5a00;
+}
+.step__text h2 {
+  margin: 10px 0 8px;
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+.step__text p {
+  margin: 0;
+  color: #444;
+  line-height: 1.5;
+  font-size: 0.98rem;
+}
+
+.step__phone {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+}
+
+/* ---------- bottom call-to-action bar ---------- */
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: clamp(40px, 6vw, 72px);
+  padding: 20px 28px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #eee;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+.cta__icon {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #ffe6d6;
+  color: #ff5a00;
+}
+.cta__text { flex: 1; min-width: 0; }
+.cta__text h3 { margin: 0 0 4px; font-size: 1.15rem; font-weight: 700; }
+.cta__text p { margin: 0; color: #555; font-size: 0.92rem; }
+
+.cta__buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta__btn {
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter 0.2s, background 0.2s;
+}
+.cta__btn--primary { background: #ff5a00; color: #fff; }
+.cta__btn--primary:hover { filter: brightness(0.92); }
+.cta__btn--outline { background: #fff; color: #111; border: 1.5px solid #ddd; }
+.cta__btn--outline:hover { background: #f7f7f7; }
+
+/* 
+   TABLETS / SMALL LAPTOPS (under 1024px): one step per row
+    */
+@media (max-width: 1023px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 640px;
+    margin: 0 auto;
+    row-gap: 48px;
+  }
+  .steps::before,
+  .step:nth-child(even) .step__text::before { display: none; }
+
+  .step { align-items: center; }
+  .step__text { padding-top: 0; }
+  .step__phone { max-width: 190px; justify-self: center; }
+}
+
+/* 
+   PHONES (under 640px): text on top, phone below
+    */
+@media (max-width: 639px) {
+  .step { grid-template-columns: minmax(0, 1fr); text-align: center; gap: 24px; }
+  .step__number { font-size: 2.8rem; }
+  .step__phone { width: min(220px, 70%); max-width: none; margin: 0 auto; }
+
+  .cta { flex-direction: column; text-align: center; padding: 24px 20px; }
+  .cta__buttons { width: 100%; }
+  .cta__btn { flex: 1 1 140px; text-align: center; }
+}
