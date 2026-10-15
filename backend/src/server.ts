@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth";
+import adminRoutes from "./routes/admin";
+import itAdminRoutes from "./routes/itAdmin";
+import productRoutes from "./routes/products";
 
 dotenv.config();
 
@@ -14,6 +17,9 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/admin", adminRoutes);
+app.use("/it-admin", itAdminRoutes);
+app.use("/products", productRoutes);
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

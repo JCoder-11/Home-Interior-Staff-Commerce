@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "resend": "^6.33.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10"
+  }
+}
