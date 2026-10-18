@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Mail, Lock, Eye, EyeOff, ShoppingBag } from 'lucide-react'
 import './Login.css'
-
+import { homeFor } from '../lib/roles'
+import { useAuth } from "../hooks/useAuth";
 
 
 export default function Login() {
@@ -10,11 +11,22 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [remember, setRemember] = useState(false)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // backend look am 
-    console.log('Sign in with', { email, remember })
+    // backend look am
+
+    // TEMPORARY: fake login until the backend is ready.
+    let role = 'sales'
+    if (email.includes('itadmin')) role = 'it_admin'
+    else if (email.includes('admin')) role = 'admin'
+
+    const userData = { name: 'Michael Okafor', role }
+
+    login(userData)
+    navigate(homeFor(userData.role))
   }
 
   return (
@@ -46,7 +58,9 @@ export default function Login() {
           <p className="login__subtitle">Sign in to continue to your dashboard.</p>
 
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email" className="login__label">Email Address</label>
+            <label htmlFor="email" className="login__label">
+              Email Address
+            </label>
             <div className="field">
               <Mail size={20} />
               <input
@@ -56,11 +70,13 @@ export default function Login() {
                 autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
+              
             </div>
 
-            <label htmlFor="password" className="login__label">Password</label>
+            <label htmlFor="password" className="login__label">
+              Password
+            </label>
             <div className="field">
               <Lock size={20} />
               <input
@@ -70,43 +86,36 @@ export default function Login() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
               <button
                 type="button"
-                className="field__toggle"
+                className="password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
-                onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
 
-            <div className="login__row">
+            <div className="login__options">
               <label className="login__remember">
                 <input
                   type="checkbox"
                   checked={remember}
                   onChange={(e) => setRemember(e.target.checked)}
                 />
-                Remember me
+                <span>Remember me</span>
               </label>
-              <Link to="/forgot-password" className="login__forgot">Forgot password?</Link>
+              <Link to="/forgot-password" className="login__link">
+                Forgot password?
+              </Link>
             </div>
 
-            <button type="submit" className="btn-signin">Sign in</button>
+            <button type="submit" className="login__submit">
+              Sign In
+            </button>
           </form>
-
-          
-
-          
         </div>
-           <p className="login__signup">
-            Don't have an account? <Link to="/signup">Sign up</Link>
-           </p>
-        <p className="login__footer">
-          © {new Date().getFullYear()} Home Interior. All rights reserved.
-        </p>
       </main>
     </div>
   )
